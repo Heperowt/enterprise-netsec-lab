@@ -1,0 +1,45 @@
+name: netsec-lab
+
+topology:
+  nodes:
+    isp-r1:
+      kind: linux
+      image: quay.io/frrouting/frr:9.1.0
+      binds:
+        - configs/frr-daemons:/etc/frr/daemons
+        - configs/isp-r1.conf:/etc/frr/frr.conf
+      sysctls:
+        net.ipv4.ip_forward: 1
+
+    isp-r2:
+      kind: linux
+      image: quay.io/frrouting/frr:9.1.0
+      binds:
+        - configs/frr-daemons:/etc/frr/daemons
+        - configs/isp-r2.conf:/etc/frr/frr.conf
+      sysctls:
+        net.ipv4.ip_forward: 1
+
+    isp-r3:
+      kind: linux
+      image: quay.io/frrouting/frr:9.1.0
+      binds:
+        - configs/frr-daemons:/etc/frr/daemons
+        - configs/isp-r3.conf:/etc/frr/frr.conf
+      sysctls:
+        net.ipv4.ip_forward: 1
+
+    isp-r4:
+      kind: linux
+      image: quay.io/frrouting/frr:9.1.0
+      binds:
+        - configs/frr-daemons:/etc/frr/daemons
+        - configs/isp-r4.conf:/etc/frr/frr.conf
+      sysctls:
+        net.ipv4.ip_forward: 1
+
+  links:
+    - endpoints: ["isp-r1:eth2", "isp-r2:eth1"]
+    - endpoints: ["isp-r1:eth3", "isp-r3:eth1"]
+    - endpoints: ["isp-r2:eth2", "isp-r4:eth1"]
+    - endpoints: ["isp-r3:eth2", "isp-r4:eth2"]

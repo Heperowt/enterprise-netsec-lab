@@ -1,0 +1,6 @@
+clab-*/
+.*.bak
+__pycache__/
+*.pyc
+*.key
+secrets/
